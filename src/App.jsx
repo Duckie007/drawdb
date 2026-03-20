@@ -7,10 +7,15 @@ import LandingPage from "./pages/LandingPage";
 import SettingsContextProvider from "./context/SettingsContext";
 import NotFound from "./pages/NotFound";
 
+function getRouterBasename() {
+  const baseUrl = import.meta.env.BASE_URL || "/";
+  return baseUrl === "/" ? "/" : baseUrl.replace(/\/$/, "");
+}
+
 export default function App() {
   return (
     <SettingsContextProvider>
-      <BrowserRouter>
+      <BrowserRouter basename={getRouterBasename()}>
         <RestoreScroll />
         <Routes>
           <Route path="/" element={<LandingPage />} />
