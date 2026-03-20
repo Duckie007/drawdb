@@ -166,14 +166,7 @@ export default function LandingPage() {
             </div>
             <img src={screenshot} className="mx-auto" />
           </div>
-          <div className="text-center mb-10">
-            <div className="text-5xl md:text-3xl font-bold text-sky-800">
-              {languages.length}
-            </div>
-            <div className="ms-1 mt-1 font-medium tracking-wide">
-              {t("landing_stat_languages")}
-            </div>
-          </div>
+
           <div className="text-lg font-medium text-center mt-12 mb-6">
             {t("landing_design_for_database")}
           </div>

@@ -311,7 +311,6 @@ const zh = {
       "点击几下即可构建图表、查看整体结构、导出 SQL 脚本、自定义编辑器等。",
     landing_stat_stars: "GitHub Stars",
     landing_stat_forks: "GitHub Forks",
-    landing_stat_languages: "语言数",
     landing_design_for_database: "为你的数据库设计",
     landing_more_than_editor: "不止是一个编辑器",
     landing_offer_title: "drawDB 能为你做什么",

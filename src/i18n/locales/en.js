@@ -308,7 +308,6 @@ const en = {
       "Build diagrams with a few clicks, see the full picture, export SQL scripts, customize your editor, and more.",
     landing_stat_stars: "GitHub stars",
     landing_stat_forks: "GitHub forks",
-    landing_stat_languages: "Languages",
     landing_design_for_database: "Design for your database",
     landing_more_than_editor: "More than just an editor",
     landing_offer_title: "What drawDB has to offer",
