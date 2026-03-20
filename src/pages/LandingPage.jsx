@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import SimpleCanvas from "../components/SimpleCanvas";
 import Navbar from "../components/Navbar";
 import { diagram } from "../data/heroDiagram";
@@ -24,10 +25,90 @@ function shortenNumber(number) {
 
   if (number >= 1000 && number < 1_000_000)
     return `${(number / 1000).toFixed(1)}k`;
+
+  return `${(number / 1_000_000).toFixed(1)}m`;
+}
+
+function getFeatures(t) {
+  return [
+    {
+      title: t("landing_feature_export_title"),
+      content: <div>{t("landing_feature_export_content")}</div>,
+      footer: "",
+    },
+    {
+      title: t("landing_feature_reverse_title"),
+      content: <div>{t("landing_feature_reverse_content")}</div>,
+      footer: "",
+    },
+    {
+      title: t("landing_feature_migrations_title"),
+      content: <div>{t("landing_feature_migrations_content")}</div>,
+      footer: "",
+    },
+    {
+      title: t("landing_feature_workspace_title"),
+      content: <div>{t("landing_feature_workspace_content")}</div>,
+      footer: "",
+    },
+    {
+      title: t("landing_feature_shortcuts_title"),
+      content: (
+        <div>
+          {t("landing_feature_shortcuts_content")}{" "}
+          <Link
+            to={`${socials.docs}/shortcuts`}
+            className="ms-1.5 text-blue-500 hover:underline"
+          >
+            {t("landing_feature_shortcuts_link")}
+          </Link>
+          .
+        </div>
+      ),
+      footer: "",
+    },
+    {
+      title: t("landing_feature_templates_title"),
+      content: <div>{t("landing_feature_templates_content")}</div>,
+      footer: "",
+    },
+    {
+      title: t("landing_feature_custom_templates_title"),
+      content: <div>{t("landing_feature_custom_templates_content")}</div>,
+      footer: "",
+    },
+    {
+      title: t("landing_feature_editor_title"),
+      content: <div>{t("landing_feature_editor_content")}</div>,
+      footer: "",
+    },
+    {
+      title: t("landing_feature_issues_title"),
+      content: <div>{t("landing_feature_issues_content")}</div>,
+      footer: "",
+    },
+    {
+      title: t("landing_feature_relational_title"),
+      content: <div>{t("landing_feature_relational_content")}</div>,
+      footer: "",
+    },
+    {
+      title: t("landing_feature_object_title"),
+      content: <div>{t("landing_feature_object_content")}</div>,
+      footer: "",
+    },
+    {
+      title: t("landing_feature_presentation_title"),
+      content: <div>{t("landing_feature_presentation_content")}</div>,
+      footer: "",
+    },
+  ];
 }
 
 export default function LandingPage() {
+  const { t } = useTranslation();
   const [stats, setStats] = useState({ stars: 18000, forks: 1200 });
+  const features = getFeatures(t);
 
   useEffect(() => {
     const fetchStats = async () => {
@@ -37,11 +118,10 @@ export default function LandingPage() {
     };
 
     document.body.setAttribute("theme-mode", "light");
-    document.title =
-      "drawDB | Online database diagram editor and SQL generator";
+    document.title = t("landing_page_title");
 
     fetchStats();
-  }, []);
+  }, [t]);
 
   return (
     <div>
@@ -52,7 +132,6 @@ export default function LandingPage() {
           <Navbar />
         </FadeIn>
 
-        {/* Hero section */}
         <div className="flex-1 flex-col relative mx-4 md:mx-0 mb-4 rounded-3xl bg-white">
           <div className="h-full md:hidden">
             <SimpleCanvas diagram={diagram} zoom={0.85} />
@@ -62,19 +141,18 @@ export default function LandingPage() {
             <FadeIn duration={0.75}>
               <div className="md:px-3">
                 <h1 className="text-[42px] md:text-3xl font-bold tracking-wide bg-linear-to-r from-sky-900 from-10% via-slate-500 to-[#12495e] inline-block text-transparent bg-clip-text">
-                  Draw, Copy, and Paste
+                  {t("landing_hero_title")}
                 </h1>
                 <div className="text-lg font-medium mt-1 sliding-vertical">
-                  Free and open source, simple, and intuitive database design
-                  editor, data-modeler, and SQL generator.{" "}
+                  {t("landing_hero_subtitle")}{" "}
                   <span className="ms-2 sm:block sm:ms-0 text-slate-500 bg-white font-bold whitespace-nowrap">
-                    No sign up
+                    {t("landing_badge_no_signup")}
                   </span>
                   <span className="ms-2 sm:block sm:ms-0 text-slate-500 bg-white font-bold whitespace-nowrap">
-                    Free of charge
+                    {t("landing_badge_free")}
                   </span>
                   <span className="ms-2 sm:block sm:ms-0 text-slate-500 bg-white font-bold whitespace-nowrap">
-                    Quick and easy
+                    {t("landing_badge_quick")}
                   </span>
                 </div>
               </div>
@@ -88,26 +166,25 @@ export default function LandingPage() {
                     .scrollIntoView({ behavior: "smooth" })
                 }
               >
-                Learn more
+                {t("landing_learn_more")}
               </button>
               <Link
                 to="/editor"
                 className="inline-block py-3 text-white transition-all duration-300 rounded-full shadow-lg bg-sky-900 ps-7 pe-6 hover:bg-sky-800"
               >
-                Try it for yourself <i className="bi bi-arrow-right ms-1"></i>
+                {t("landing_try_now")}{" "}
+                <i className="bi bi-arrow-right ms-1"></i>
               </Link>
             </div>
           </div>
         </div>
       </div>
 
-      {/* Learn more */}
       <div id="learn-more">
         <div className="bg-zinc-100 py-10 px-28 md:px-8">
-          {/* Supported by */}
           <div className="text-center mb-16">
             <div className="text-2xl md:text-xl font-bold text-sky-800 mb-8">
-              Supported by
+              {t("landing_supported_by")}
             </div>
             <div>
               <a
@@ -122,15 +199,14 @@ export default function LandingPage() {
                   className="m-auto mb-4"
                 />
                 <div className="font-semibold text-lg md:text-base">
-                  Next-gen AI-powered intelligent terminal for all platforms
+                  {t("landing_warp_subtitle")}
                 </div>
               </a>
             </div>
           </div>
           <div className="mt-16 w-[75%] text-center sm:w-full mx-auto shadow-xs rounded-2xl border p-6 bg-white space-y-3 mb-12">
             <div className="text-lg font-medium">
-              Build diagrams with a few clicks, see the full picture, export SQL
-              scripts, customize your editor, and more.
+              {t("landing_screenshot_caption")}
             </div>
             <img src={screenshot} className="mx-auto" />
           </div>
@@ -140,7 +216,7 @@ export default function LandingPage() {
                 {shortenNumber(stats.stars)}
               </div>
               <div className="ms-1 mt-1 font-medium tracking-wide">
-                GitHub stars
+                {t("landing_stat_stars")}
               </div>
             </div>
             <div className="text-center mb-4">
@@ -148,7 +224,7 @@ export default function LandingPage() {
                 {shortenNumber(stats.forks)}
               </div>
               <div className="ms-1 mt-1 font-medium tracking-wide">
-                GitHub forks
+                {t("landing_stat_forks")}
               </div>
             </div>
             <div className="text-center mb-4">
@@ -156,12 +232,12 @@ export default function LandingPage() {
                 {shortenNumber(languages.length)}
               </div>
               <div className="ms-1 mt-1 font-medium tracking-wide">
-                Languages
+                {t("landing_stat_languages")}
               </div>
             </div>
           </div>
           <div className="text-lg font-medium text-center mt-12 mb-6">
-            Design for your database
+            {t("landing_design_for_database")}
           </div>
           <div className="grid grid-cols-3 place-items-center sm:grid-cols-1 sm:gap-10">
             {dbs.map((s, i) => (
@@ -188,14 +264,13 @@ export default function LandingPage() {
         </svg>
       </div>
 
-      {/* Features */}
       <div id="features" className="py-8 px-36 md:px-8">
         <FadeIn duration={1}>
           <div className="text-base font-medium text-center text-sky-900">
-            More than just an editor
+            {t("landing_more_than_editor")}
           </div>
           <div className="text-2xl mt-1 font-medium text-center">
-            What drawDB has to offer
+            {t("landing_offer_title")}
           </div>
           <div className="grid grid-cols-3 gap-8 mt-10 md:grid-cols-2 sm:grid-cols-1">
             {features.map((f, i) => (
@@ -215,10 +290,9 @@ export default function LandingPage() {
         </FadeIn>
       </div>
 
-      {/* Tweets */}
       <div className="px-40 mt-6 md:px-8">
         <div className="text-center text-2xl md:text-xl font-medium">
-          What the internet says about us
+          {t("landing_internet_says")}
         </div>
         <div
           data-theme="light"
@@ -231,7 +305,6 @@ export default function LandingPage() {
         </div>
       </div>
 
-      {/* Contact us */}
       <svg
         viewBox="0 0 1440 54"
         fill="none"
@@ -246,11 +319,10 @@ export default function LandingPage() {
       </svg>
       <div className="bg-zinc-100 py-8 px-32 md:px-8">
         <div className="mt-4 mb-2 text-2xl font-bold text-center">
-          Reach out to us
+          {t("landing_reach_out")}
         </div>
         <div className="text-lg text-center mb-4">
-          We love hearing from you. Join our community on Discord, GitHub, and
-          X.
+          {t("landing_reach_out_text")}
         </div>
         <div className="px-36 text-center md:px-8">
           <div className="md:block md:space-y-3 flex gap-3 justify-center">
@@ -263,7 +335,7 @@ export default function LandingPage() {
               <div className="bg-zinc-800 hover:opacity-90 transition-all duration-300 flex items-center gap-4 px-14 py-4 rounded-lg">
                 <img src={github} className="h-8" />
                 <div className="text-lg text-white font-bold">
-                  See the source
+                  {t("landing_see_source")}
                 </div>
               </div>
             </a>
@@ -276,7 +348,7 @@ export default function LandingPage() {
               <div className="bg-[#5865f2] hover:opacity-90 transition-all duration-300 flex items-center gap-4 px-8 py-4 rounded-lg">
                 <img src={discord} className="h-8" />
                 <div className="text-lg text-white font-bold">
-                  Join us on Discord
+                  {t("landing_join_discord")}
                 </div>
               </div>
             </a>
@@ -288,7 +360,9 @@ export default function LandingPage() {
             >
               <div className="text-white bg-zinc-800 hover:opacity-90 transition-all duration-300 flex items-center gap-4 px-12 py-4 rounded-lg">
                 <i className="text-2xl bi bi-twitter-x" />
-                <div className="text-lg  font-bold">Follow us on X</div>
+                <div className="text-lg font-bold">
+                  {t("landing_follow_x")}
+                </div>
               </div>
             </a>
           </div>
@@ -296,13 +370,12 @@ export default function LandingPage() {
       </div>
 
       <div className="bg-red-700 py-1 text-center text-white text-xs font-semibold px-3">
-        Attention! The diagrams are saved in your browser. Before clearing the
-        browser make sure to back up your data.
+        {t("landing_browser_warning")}
       </div>
       <hr className="border-zinc-300" />
       <div className="text-center text-sm py-3">
-        &copy; {new Date().getFullYear()} <strong>drawDB</strong> - All rights
-        reserved.
+        &copy; {new Date().getFullYear()} <strong>drawDB</strong> -{" "}
+        {t("all_rights_reserved")}
       </div>
     </div>
   );
@@ -315,133 +388,4 @@ const dbs = [
   { icon: mariadb_icon, height: 64 },
   { icon: sql_server_icon, height: 64 },
   { icon: oraclesql_icon, height: 172 },
-];
-
-const features = [
-  {
-    title: "Export",
-    content: (
-      <div>
-        Export the DDL script to run on your database or export the diagram as a
-        JSON or an image.
-      </div>
-    ),
-    footer: "",
-  },
-  {
-    title: "Reverse engineer",
-    content: (
-      <div>
-        Already have a schema? Import a DDL script to generate a diagram.
-      </div>
-    ),
-    footer: "",
-  },
-  {
-    title: "Generate migrations",
-    content: (
-      <div>
-        Version your diagram and generate migration scripts to update your
-        database
-      </div>
-    ),
-    footer: "",
-  },
-  {
-    title: "Customizable workspace",
-    content: (
-      <div>
-        Customize the UI to fit your preferences. Select the components you want
-        in your view.
-      </div>
-    ),
-    footer: "",
-  },
-  {
-    title: "Keyboard shortcuts",
-    content: (
-      <div>
-        Speed up development with keyboard shortcuts. See all available
-        shortcuts
-        <Link
-          to={`${socials.docs}/shortcuts`}
-          className="ms-1.5 text-blue-500 hover:underline"
-        >
-          here
-        </Link>
-        .
-      </div>
-    ),
-    footer: "",
-  },
-  {
-    title: "Templates",
-    content: (
-      <div>
-        Start off with pre-built templates. Get a quick start or get inspiration
-        for your design.
-      </div>
-    ),
-    footer: "",
-  },
-  {
-    title: "Custom Templates",
-    content: (
-      <div>
-        Have boilerplate structures? Save time by saving them as templates and
-        load them when needed.
-      </div>
-    ),
-    footer: "",
-  },
-  {
-    title: "Robust editor",
-    content: (
-      <div>
-        Undo, redo, copy, paste, duplicate and more. Add tables, subject areas,
-        and notes.
-      </div>
-    ),
-    footer: "",
-  },
-  {
-    title: "Issue detection",
-    content: (
-      <div>
-        Detect and tackle errors in the diagram to make sure the scripts are
-        correct.
-      </div>
-    ),
-    footer: "",
-  },
-  {
-    title: "Relational databases",
-    content: (
-      <div>
-        We support 5 relational databases - MySQL, PostgreSQL, SQLite, MariaDB,
-        SQL Server.
-      </div>
-    ),
-    footer: "",
-  },
-  {
-    title: "Object-Relational databases",
-    content: (
-      <div>
-        Add custom types for object-relational databases, or create custom JSON
-        schemes.
-      </div>
-    ),
-    footer: "",
-  },
-  {
-    title: "Presentation mode",
-    content: (
-      <div>
-        Present your diagrams on a big screen during team meetings and
-        discussions.
-      </div>
-    ),
-    footer: "",
-  },
 ];

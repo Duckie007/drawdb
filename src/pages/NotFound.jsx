@@ -1,35 +1,35 @@
 import { socials } from "../data/socials";
+import { useTranslation } from "react-i18next";
 
 export default function NotFound() {
+  const { t } = useTranslation();
+
   return (
     <div className="p-3 space-y-2">
-      <p>hey there!</p>
+      <p>{t("not_found_greeting")}</p>
 
-      <p>looking for something you couldn&apos;t find?</p>
+      <p>{t("not_found_prompt")}</p>
       <p>
-        check out the{" "}
+        {t("not_found_check_out")}{" "}
         <a className="text-blue-600" href={socials.docs}>
-          docs
+          {t("not_found_docs")}
         </a>
         ,{" "}
         <a className="text-blue-600" href="mailto:drawdb@outlook.com">
-          shoot us an email
+          {t("not_found_email")}
         </a>{" "}
-        or{" "}
+        {t("not_found_or")}{" "}
         <a className="text-blue-600" href={socials.discord}>
-          a message on discord
+          {t("not_found_discord")}
         </a>
       </p>
       <br />
-      <p className="opacity-70">
-        * to create a relationship hold the blue dot of a field and drag it
-        towards the field you want to connect it to
-      </p>
+      <p className="opacity-70">{t("not_found_tip")}</p>
       <a
         className="text-blue-600"
         href={`${socials.docs}/create-diagram#relationships`}
       >
-        see here
+        {t("not_found_see_here")}
       </a>
     </div>
   );

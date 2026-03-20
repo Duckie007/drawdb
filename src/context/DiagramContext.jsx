@@ -16,11 +16,29 @@ export default function DiagramContextProvider({ children }) {
   const { setUndoStack, setRedoStack } = useUndoRedo();
   const { selectedElement, setSelectedElement } = useSelect();
 
+  const getNextTableName = () => {
+    const usedIndexes = new Set(
+      tables
+        .map((table) => {
+          const match = /^table_(\d+)$/.exec(table.name);
+          return match ? Number.parseInt(match[1], 10) : null;
+        })
+        .filter((index) => Number.isInteger(index) && index > 0),
+    );
+
+    let nextIndex = 1;
+    while (usedIndexes.has(nextIndex)) {
+      nextIndex += 1;
+    }
+
+    return `table_${nextIndex}`;
+  };
+
   const addTable = (data, addToHistory = true) => {
     const id = nanoid();
     const newTable = {
       id,
-      name: `table_${id}`,
+      name: getNextTableName(),
       x: transform.pan.x,
       y: transform.pan.y,
       locked: false,

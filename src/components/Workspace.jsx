@@ -42,10 +42,11 @@ export const IdContext = createContext({
 const SIDEPANEL_MIN_WIDTH = 384;
 
 export default function WorkSpace() {
+  const { t, i18n } = useTranslation();
   const [gistId, setGistId] = useState("");
   const [version, setVersion] = useState("");
   const [loadedFromGistId, setLoadedFromGistId] = useState("");
-  const [title, setTitle] = useState("Untitled Diagram");
+  const [title, setTitle] = useState(t("untitled_model"));
   const [resize, setResize] = useState(false);
   const [width, setWidth] = useState(SIDEPANEL_MIN_WIDTH);
   const [lastSaved, setLastSaved] = useState("");
@@ -69,13 +70,30 @@ export default function WorkSpace() {
     setDatabase,
   } = useDiagram();
   const { undoStack, redoStack, setUndoStack, setRedoStack } = useUndoRedo();
-  const { t, i18n } = useTranslation();
   let [searchParams, setSearchParams] = useSearchParams();
   const { id: loadedDiagramId } = useParams();
   const isDiagram = useMatch("/editor/diagrams/:id");
   const isTemplate = useMatch("/editor/templates/:id");
 
   const navigate = useNavigate();
+
+  const normalizeDiagramTitle = useCallback(
+    (value) => {
+      const legacyUntitledTitles = new Set([
+        "Untitled Diagram",
+        "Untitled diagram",
+        "Untitled Model",
+        "未命名图表",
+      ]);
+
+      if (!value || legacyUntitledTitles.has(value)) {
+        return t("untitled_model");
+      }
+
+      return value;
+    },
+    [t],
+  );
 
   const handleResize = (e) => {
     if (!resize) return;
@@ -172,7 +190,7 @@ export default function WorkSpace() {
             }
             setGistId(diagram.gistId);
             setLoadedFromGistId(diagram.loadedFromGistId);
-            setTitle(diagram.name);
+            setTitle(normalizeDiagramTitle(diagram.name));
             setTables(diagram.tables);
             setRelationships(diagram.references);
             setNotes(diagram.notes);
@@ -228,7 +246,7 @@ export default function WorkSpace() {
       }
       setGistId(diagram.gistId);
       setLoadedFromGistId(diagram.loadedFromGistId);
-      setTitle(diagram.name);
+      setTitle(normalizeDiagramTitle(diagram.name));
       setTables(diagram.tables);
       setRelationships(diagram.references);
       setAreas(diagram.areas);
@@ -327,7 +345,7 @@ export default function WorkSpace() {
         setGistId(shareId);
         setLoadedFromGistId(shareId);
         setDatabase(parsedDiagram.database);
-        setTitle(parsedDiagram.title);
+        setTitle(normalizeDiagramTitle(parsedDiagram.title));
         setTables(parsedDiagram.tables);
         setRelationships(parsedDiagram.relationships);
         setNotes(parsedDiagram.notes);
@@ -413,6 +431,7 @@ export default function WorkSpace() {
     isDiagram,
     isTemplate,
     loadedDiagramId,
+    normalizeDiagramTitle,
   ]);
 
   const returnToCurrentDiagram = async () => {

@@ -32,6 +32,8 @@ const en = {
     export_as: "Export as",
     export_source: "Export SQL",
     models: "Models",
+    models_collection: "Data Models",
+    untitled_model: "Untitled Model",
     exit: "Exit",
     edit: "Edit",
     undo: "Undo",
@@ -279,6 +281,135 @@ const en = {
     insert_sql: "Insert SQL",
     upload_file: "Upload file",
     show_comments: "Show comments",
+    check_syntax_or_report_error:
+      "Please check for syntax errors or let us know about the error.",
+    all_rights_reserved: "All rights reserved.",
+    nav_features: "Features",
+    nav_editor: "Editor",
+    nav_templates: "Templates",
+    nav_docs: "Docs",
+    nav_github: "Jump to GitHub",
+    nav_x: "Follow us on X",
+    nav_discord: "Join the community on Discord",
+    landing_page_title:
+      "drawDB | Online database diagram editor and SQL generator",
+    landing_hero_title: "Draw, Copy, and Paste",
+    landing_hero_subtitle:
+      "Free and open source, simple, and intuitive database design editor, data-modeler, and SQL generator.",
+    landing_badge_no_signup: "No sign up",
+    landing_badge_free: "Free of charge",
+    landing_badge_quick: "Quick and easy",
+    landing_learn_more: "Learn more",
+    landing_try_now: "Try it for yourself",
+    landing_supported_by: "Supported by",
+    landing_warp_subtitle:
+      "Next-gen AI-powered intelligent terminal for all platforms",
+    landing_screenshot_caption:
+      "Build diagrams with a few clicks, see the full picture, export SQL scripts, customize your editor, and more.",
+    landing_stat_stars: "GitHub stars",
+    landing_stat_forks: "GitHub forks",
+    landing_stat_languages: "Languages",
+    landing_design_for_database: "Design for your database",
+    landing_more_than_editor: "More than just an editor",
+    landing_offer_title: "What drawDB has to offer",
+    landing_internet_says: "What the internet says about us",
+    landing_reach_out: "Reach out to us",
+    landing_reach_out_text:
+      "We love hearing from you. Join our community on Discord, GitHub, and X.",
+    landing_see_source: "See the source",
+    landing_join_discord: "Join us on Discord",
+    landing_follow_x: "Follow us on X",
+    landing_browser_warning:
+      "Attention! The diagrams are saved in your browser. Before clearing the browser make sure to back up your data.",
+    landing_feature_export_title: "Export",
+    landing_feature_export_content:
+      "Export the DDL script to run on your database or export the diagram as JSON or an image.",
+    landing_feature_reverse_title: "Reverse engineer",
+    landing_feature_reverse_content:
+      "Already have a schema? Import a DDL script to generate a diagram.",
+    landing_feature_migrations_title: "Generate migrations",
+    landing_feature_migrations_content:
+      "Version your diagram and generate migration scripts to update your database.",
+    landing_feature_workspace_title: "Customizable workspace",
+    landing_feature_workspace_content:
+      "Customize the UI to fit your preferences. Select the components you want in your view.",
+    landing_feature_shortcuts_title: "Keyboard shortcuts",
+    landing_feature_shortcuts_content:
+      "Speed up development with keyboard shortcuts. See all available shortcuts",
+    landing_feature_shortcuts_link: "here",
+    landing_feature_templates_title: "Templates",
+    landing_feature_templates_content:
+      "Start off with pre-built templates. Get a quick start or inspiration for your design.",
+    landing_feature_custom_templates_title: "Custom Templates",
+    landing_feature_custom_templates_content:
+      "Have boilerplate structures? Save them as templates and load them when needed.",
+    landing_feature_editor_title: "Robust editor",
+    landing_feature_editor_content:
+      "Undo, redo, copy, paste, duplicate and more. Add tables, subject areas, and notes.",
+    landing_feature_issues_title: "Issue detection",
+    landing_feature_issues_content:
+      "Detect and tackle errors in the diagram to make sure the scripts are correct.",
+    landing_feature_relational_title: "Relational databases",
+    landing_feature_relational_content:
+      "We support 5 relational databases: MySQL, PostgreSQL, SQLite, MariaDB, and SQL Server.",
+    landing_feature_object_title: "Object-relational databases",
+    landing_feature_object_content:
+      "Add custom types for object-relational databases, or create custom JSON schemas.",
+    landing_feature_presentation_title: "Presentation mode",
+    landing_feature_presentation_content:
+      "Present your diagrams on a big screen during team meetings and discussions.",
+    templates_page_title: "Templates | drawDB",
+    templates_heading: "Database schema templates",
+    templates_intro:
+      "A compilation of database entity relationship diagrams to give you a quick start or inspire your application's architecture.",
+    templates_default: "Default templates",
+    templates_yours: "Your templates",
+    templates_no_custom: "You have no custom templates saved.",
+    templates_how_to_save: "How to save a template",
+    templates_delete: "Delete",
+    templates_step_build_title: "Build a diagram",
+    templates_step_build_description: "Build the template in the editor",
+    templates_step_save_title: "Save as template",
+    templates_step_save_description: "Editor > File > Save as template",
+    templates_step_load_title: "Load a template",
+    templates_step_load_description: "Fork a template to build on",
+    bug_report_page_title: "Report a bug | drawDB",
+    bug_report_submit_success: "Bug reported!",
+    bug_report_title_placeholder: "Title",
+    bug_report_editor_placeholder: "Describe the bug",
+    bug_report_upload_main:
+      "Click to upload the file or drag and drop the file here",
+    bug_report_upload_sub: "Upload up to 3 images",
+    bug_report_submit: "Submit",
+    bug_report_describe_title: "Describe the bug",
+    bug_report_describe_description:
+      "Please provide a clear and concise description of what the bug is.",
+    bug_report_steps_title: "Steps to reproduce the bug",
+    bug_report_steps_description:
+      "Please provide the steps of how to reproduce the bug.",
+    bug_report_expected_title: "Expected behaviour",
+    bug_report_expected_description:
+      "Tell us what you expected to see vs what you saw.",
+    bug_report_environment_title: "Your browser and device",
+    bug_report_environment_description:
+      "What web browser and device did you encounter the bug on.",
+    bug_report_screenshots_title: "Screenshots",
+    bug_report_screenshots_description:
+      "Add any relevant images if possible.",
+    bug_report_alternative: "Alternatively",
+    bug_report_add_issue: "Add an issue",
+    bug_report_banner:
+      "We value your feedback! If you've encountered a bug or issue while using our platform, please help us improve by reporting it. Your input is invaluable in making our service better.",
+    not_found_greeting: "Hey there!",
+    not_found_prompt: "Looking for something you couldn't find?",
+    not_found_check_out: "Check out the",
+    not_found_docs: "docs",
+    not_found_email: "shoot us an email",
+    not_found_or: "or",
+    not_found_discord: "a message on Discord",
+    not_found_tip:
+      "* To create a relationship hold the blue dot of a field and drag it towards the field you want to connect it to.",
+    not_found_see_here: "See here",
   },
 };
 

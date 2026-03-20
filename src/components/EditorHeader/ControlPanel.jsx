@@ -844,7 +844,7 @@ export default function ControlPanel({ title, setTitle, lastSaved }) {
             .equals(diagramId)
             .delete()
             .then(() => {
-              setTitle("Untitled diagram");
+              setTitle(t("untitled_model"));
               setTables([]);
               setRelationships([]);
               setAreas([]);
@@ -1840,7 +1840,10 @@ export default function ControlPanel({ title, setTitle, lastSaved }) {
                 }}
                 onClick={!layout.readOnly && (() => setModal(MODAL.RENAME))}
               >
-                <span>{(isTemplate ? "Templates/" : "Diagrams/") + title}</span>
+                <span>
+                  {(isTemplate ? `${t("nav_templates")}/` : `${t("models_collection")}/`) +
+                    title}
+                </span>
                 {version && (
                   <Tag className="mt-1" color="blue" size="small">
                     {version.substring(0, 7)}

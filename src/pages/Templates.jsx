@@ -4,11 +4,13 @@ import { Tabs, TabPane, Banner, Steps } from "@douyinfe/semi-ui";
 import { IconDeleteStroked } from "@douyinfe/semi-icons";
 import { db } from "../data/db";
 import { useLiveQuery } from "dexie-react-hooks";
+import { useTranslation } from "react-i18next";
 import Thumbnail from "../components/Thumbnail";
 import logo_light from "../assets/logo_light_160.png";
 import template_screenshot from "../assets/template_screenshot.png";
 
 export default function Templates() {
+  const { t } = useTranslation();
   const defaultTemplates = useLiveQuery(() =>
     db.templates.where({ custom: 0 }).toArray(),
   );
@@ -26,8 +28,8 @@ export default function Templates() {
   };
 
   useEffect(() => {
-    document.title = "Templates | drawDB";
-  }, []);
+    document.title = t("templates_page_title");
+  }, [t]);
 
   return (
     <div>
@@ -42,7 +44,7 @@ export default function Templates() {
               />
             </Link>
             <div className="ms-4 sm:text-sm xl:text-xl text-xl font-semibold">
-              Templates
+              {t("templates")}
             </div>
           </div>
         </div>
@@ -50,16 +52,15 @@ export default function Templates() {
         <div className="xl:px-20 sm:px-6 px-12 py-6">
           <div className="w-full md:w-[75%] xl:w-[50%] mb-2">
             <div className="text-2xl sm:text-lg font-semibold mb-2 text-neutral-800">
-              Database schema templates
+              {t("templates_heading")}
             </div>
             <div className="text-sm text-neutral-700">
-              A compilation of database entity relationship diagrams to give you
-              a quick start or inspire your application&apos;s architecture.
+              {t("templates_intro")}
             </div>
           </div>
           <Tabs>
             <TabPane
-              tab={<span className="mx-2">Default templates</span>}
+              tab={<span className="mx-2">{t("templates_default")}</span>}
               itemKey="1"
             >
               <div className="grid xl:grid-cols-3 grid-cols-2 sm:grid-cols-1 gap-10 my-6">
@@ -95,7 +96,7 @@ export default function Templates() {
               </div>
             </TabPane>
             <TabPane
-              tab={<span className="mx-2">Your templates</span>}
+              tab={<span className="mx-2">{t("templates_yours")}</span>}
               itemKey="2"
             >
               {customTemplates?.length > 0 ? (
@@ -128,7 +129,9 @@ export default function Templates() {
                             onClick={() => deleteTemplate(c.id)}
                           >
                             <IconDeleteStroked />
-                            <div className="ms-1.5 font-semibold">Delete</div>
+                            <div className="ms-1.5 font-semibold">
+                              {t("templates_delete")}
+                            </div>
                           </button>
                         </div>
                       </div>
@@ -143,7 +146,7 @@ export default function Templates() {
                     bordered
                     icon={null}
                     closeIcon={null}
-                    description={<div>You have no custom templates saved.</div>}
+                    description={<div>{t("templates_no_custom")}</div>}
                   />
                   <div className="grid grid-cols-5 sm:grid-cols-1 gap-4 place-content-center my-4">
                     <img
@@ -152,20 +155,20 @@ export default function Templates() {
                     />
                     <div className="col-span-2 sm:cols-span-1">
                       <div className="text-xl font-bold my-4">
-                        How to save a template
+                        {t("templates_how_to_save")}
                       </div>
                       <Steps direction="vertical" style={{ margin: "12px" }}>
                         <Steps.Step
-                          title="Build a diagram"
-                          description="Build the template in the editor"
+                          title={t("templates_step_build_title")}
+                          description={t("templates_step_build_description")}
                         />
                         <Steps.Step
-                          title="Save as template"
-                          description="Editor > File > Save as template"
+                          title={t("templates_step_save_title")}
+                          description={t("templates_step_save_description")}
                         />
                         <Steps.Step
-                          title="Load a template"
-                          description="Fork a template to build on"
+                          title={t("templates_step_load_title")}
+                          description={t("templates_step_load_description")}
                         />
                       </Steps>
                     </div>
@@ -178,8 +181,8 @@ export default function Templates() {
       </div>
       <hr className="border-zinc-300 my-1" />
       <div className="text-center text-sm py-3">
-        &copy; {new Date().getFullYear()} <strong>drawDB</strong> - All rights
-        reserved.
+        &copy; {new Date().getFullYear()} <strong>drawDB</strong> -{" "}
+        {t("all_rights_reserved")}
       </div>
     </div>
   );

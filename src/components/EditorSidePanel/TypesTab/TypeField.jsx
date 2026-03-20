@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { Action, ObjectType } from "../../../data/constants";
 import {
   Row,
@@ -20,6 +20,12 @@ import {
 } from "../../../hooks";
 import { useTranslation } from "react-i18next";
 import { dbToTypes } from "../../../data/datatypes";
+import {
+  buildTypeOptionList,
+  filterTypeOption,
+  renderSelectedTypeItem,
+  renderTypeOptionItem,
+} from "../../../utils/typeOptions";
 
 export default function TypeField({ data, tid, fid }) {
   const { types, updateType } = useTypes();
@@ -29,6 +35,17 @@ export default function TypeField({ data, tid, fid }) {
   const { setUndoStack, setRedoStack } = useUndoRedo();
   const [editField, setEditField] = useState({});
   const { t } = useTranslation();
+  const typeOptions = useMemo(
+    () =>
+      buildTypeOptionList({
+        database,
+        builtinTypes: dbToTypes[database],
+        customTypes: types,
+        enums,
+        excludeCustomTypeName: types[tid]?.name,
+      }),
+    [database, enums, tid, types],
+  );
 
   return (
     <Row gutter={6} className="hover-1 my-2">
@@ -71,31 +88,17 @@ export default function TypeField({ data, tid, fid }) {
       <Col span={11}>
         <Select
           className="w-full"
-          optionList={[
-            ...Object.keys(dbToTypes[database]).map((value) => ({
-              label: value,
-              value: value,
-            })),
-            ...types
-              .filter(
-                (type) => type.name.toLowerCase() !== types[tid].name.toLowerCase(),
-              )
-              .map((type) => ({
-                label: type.name.toUpperCase(),
-                value: type.name.toUpperCase(),
-              })),
-            ...enums.map((type) => ({
-              label: type.name.toUpperCase(),
-              value: type.name.toUpperCase(),
-            })),
-          ]}
-          filter
+          optionList={typeOptions}
+          filter={filterTypeOption}
+          renderOptionItem={renderTypeOptionItem}
+          renderSelectedItem={renderSelectedTypeItem}
           value={data.type}
           validateStatus={data.type === "" ? "error" : "default"}
           placeholder={t("type")}
           onChange={(value) => {
             if (layout.readOnly) return;
             if (value === data.type) return;
+            const nextTypeConfig = dbToTypes[database][value] || null;
             setUndoStack((prev) => [
               ...prev,
               {
@@ -126,8 +129,8 @@ export default function TypeField({ data, tid, fid }) {
                 ),
               });
             } else if (
-              dbToTypes[database][value].isSized ||
-              dbToTypes[database][value].hasPrecision
+              nextTypeConfig?.isSized ||
+              nextTypeConfig?.hasPrecision
             ) {
               updateType(tid, {
                 fields: types[tid].fields.map((e, id) =>
@@ -135,7 +138,7 @@ export default function TypeField({ data, tid, fid }) {
                     ? {
                         ...data,
                         type: value,
-                        size: dbToTypes[database][value].defaultSize,
+                        size: nextTypeConfig.defaultSize,
                       }
                     : e,
                 ),

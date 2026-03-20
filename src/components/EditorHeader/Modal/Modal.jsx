@@ -156,7 +156,7 @@ export default function Modal({
     } catch (e) {
       setError({
         type: STATUS.ERROR,
-        message: `Please check for syntax errors or let us know about the error.`,
+        message: t("check_syntax_or_report_error"),
       });
     }
   };

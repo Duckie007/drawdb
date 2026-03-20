@@ -13,6 +13,12 @@ import { useTranslation } from "react-i18next";
 import { dbToTypes } from "../../../data/datatypes";
 import { DragHandle } from "../../SortableList/DragHandle";
 import FieldDetails from "./FieldDetails";
+import {
+  buildTypeOptionList,
+  filterTypeOption,
+  renderSelectedTypeItem,
+  renderTypeOptionItem,
+} from "../../../utils/typeOptions";
 
 export default function TableField({ data, tid, index, inherited }) {
   const { updateField } = useDiagram();
@@ -24,6 +30,16 @@ export default function TableField({ data, tid, index, inherited }) {
   const { setUndoStack, setRedoStack } = useUndoRedo();
   const [editField, setEditField] = useState({});
   const table = useMemo(() => tables.find((t) => t.id === tid), [tables, tid]);
+  const typeOptions = useMemo(
+    () =>
+      buildTypeOptionList({
+        database,
+        builtinTypes: dbToTypes[database],
+        customTypes: types,
+        enums,
+      }),
+    [database, types, enums],
+  );
 
   return (
     <div className="hover-1 my-2 flex gap-2 items-center">
@@ -66,21 +82,10 @@ export default function TableField({ data, tid, index, inherited }) {
       <div className="min-w-24 flex-1/3">
         <Select
           className="w-full"
-          optionList={[
-            ...Object.keys(dbToTypes[database]).map((value) => ({
-              label: value,
-              value,
-            })),
-            ...types.map((type) => ({
-              label: type.name.toUpperCase(),
-              value: type.name.toUpperCase(),
-            })),
-            ...enums.map((type) => ({
-              label: type.name.toUpperCase(),
-              value: type.name.toUpperCase(),
-            })),
-          ]}
-          filter
+          optionList={typeOptions}
+          filter={filterTypeOption}
+          renderOptionItem={renderTypeOptionItem}
+          renderSelectedItem={renderSelectedTypeItem}
           value={data.type}
           validateStatus={data.type === "" ? "error" : "default"}
           placeholder={t("type")}
@@ -88,6 +93,8 @@ export default function TableField({ data, tid, index, inherited }) {
             if (layout.readOnly) return;
 
             if (value === data.type) return;
+            const nextTypeConfig = dbToTypes[database][value] || null;
+
             setUndoStack((prev) => [
               ...prev,
               {
@@ -105,8 +112,7 @@ export default function TableField({ data, tid, index, inherited }) {
               },
             ]);
             setRedoStack([]);
-            const incr =
-              data.increment && !!dbToTypes[database][value].canIncrement;
+            const incr = data.increment && !!nextTypeConfig?.canIncrement;
 
             if (value === "ENUM" || value === "SET") {
               updateField(tid, data.id, {
@@ -115,16 +121,13 @@ export default function TableField({ data, tid, index, inherited }) {
                 values: data.values ? [...data.values] : [],
                 increment: incr,
               });
-            } else if (
-              dbToTypes[database][value].isSized ||
-              dbToTypes[database][value].hasPrecision
-            ) {
+            } else if (nextTypeConfig?.isSized || nextTypeConfig?.hasPrecision) {
               updateField(tid, data.id, {
                 type: value,
-                size: dbToTypes[database][value].defaultSize,
+                size: nextTypeConfig.defaultSize,
                 increment: incr,
               });
-            } else if (!dbToTypes[database][value].hasDefault || incr) {
+            } else if (!nextTypeConfig || nextTypeConfig.noDefault || incr) {
               updateField(tid, data.id, {
                 type: value,
                 increment: incr,
@@ -132,7 +135,7 @@ export default function TableField({ data, tid, index, inherited }) {
                 size: "",
                 values: [],
               });
-            } else if (dbToTypes[database][value].hasCheck) {
+            } else if (nextTypeConfig.hasCheck) {
               updateField(tid, data.id, {
                 type: value,
                 check: "",
