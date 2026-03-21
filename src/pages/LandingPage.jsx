@@ -13,7 +13,6 @@ import sql_server_icon from "../assets/sql-server.png";
 import github from "../assets/github.png";
 import screenshot from "../assets/screenshot.png";
 import FadeIn from "../animations/FadeIn";
-import { languages } from "../i18n/i18n";
 import { socials } from "../data/socials";
 
 function getFeatures(t) {

@@ -7,6 +7,7 @@ import App from "./App.jsx";
 import en_US from "@douyinfe/semi-ui/lib/es/locale/source/en_US";
 import zh_CN from "@douyinfe/semi-ui/lib/es/locale/source/zh_CN";
 import zh_TW from "@douyinfe/semi-ui/lib/es/locale/source/zh_TW";
+import "bootstrap-icons/font/bootstrap-icons.css";
 import "./index.css";
 import "./i18n/i18n.js";
 
