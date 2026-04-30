@@ -23,3 +23,10 @@ dist-ssr
 *.sln
 *.sw?
 .env
+
+# ESA CLI local config (not needed for GitHub auto-deploy)
+esa.jsonc
+esa.toml
+
+# Qoder IDE workspace
+.qoder/
