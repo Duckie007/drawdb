@@ -24,8 +24,7 @@ dist-ssr
 *.sw?
 .env
 
-# ESA CLI local config (not needed for GitHub auto-deploy)
-esa.jsonc
+# ESA CLI local config (esa.toml only; esa.jsonc is committed for ESA Pages auto-deploy)
 esa.toml
 
 # Qoder IDE workspace

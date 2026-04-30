@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "build:drawdb": "vite build --base /drawdb/ --outDir dist/drawdb",
+    "build:drawdb": "vite build --base /drawdb/",
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview"
   },
